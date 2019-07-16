@@ -39,11 +39,11 @@ import (
 	"github.com/aws/aws-sdk-go/service/kinesis"
 	"github.com/aws/aws-sdk-go/service/kinesis/kinesisiface"
 
-	chk "github.com/vmware/vmware-go-kcl/clientlibrary/checkpoint"
-	"github.com/vmware/vmware-go-kcl/clientlibrary/config"
-	kcl "github.com/vmware/vmware-go-kcl/clientlibrary/interfaces"
-	"github.com/vmware/vmware-go-kcl/clientlibrary/metrics"
-	par "github.com/vmware/vmware-go-kcl/clientlibrary/partition"
+	chk "github.com/pindrop/vmware-go-kcl/clientlibrary/checkpoint"
+	"github.com/pindrop/vmware-go-kcl/clientlibrary/config"
+	kcl "github.com/pindrop/vmware-go-kcl/clientlibrary/interfaces"
+	"github.com/pindrop/vmware-go-kcl/clientlibrary/metrics"
+	par "github.com/pindrop/vmware-go-kcl/clientlibrary/partition"
 )
 
 /**
@@ -333,9 +333,10 @@ func (w *Worker) getShardIDs(startShardID string, shardInfo map[string]bool) err
 			w.shardStatus[*s.ShardId] = &par.ShardStatus{
 				ID:                     *s.ShardId,
 				ParentShardId:          aws.StringValue(s.ParentShardId),
-				Mux:                    &sync.Mutex{},
+				StreamName:             w.streamName,
 				StartingSequenceNumber: aws.StringValue(s.SequenceNumberRange.StartingSequenceNumber),
 				EndingSequenceNumber:   aws.StringValue(s.SequenceNumberRange.EndingSequenceNumber),
+				Mux:                    &sync.Mutex{},
 			}
 		}
 		lastShardID = *s.ShardId

@@ -1,4 +1,4 @@
-module github.com/vmware/vmware-go-kcl
+module github.com/pindrop/vmware-go-kcl
 
 require (
 	github.com/aws/aws-sdk-go v1.19.38

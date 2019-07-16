@@ -1,5 +1,9 @@
 # VMware-Go-KCL
 
+## A Fork? Why?
+
+The upstream project does not allow for the use of a single DynamoDB table for N many workers. This fork has changed the schema for the DynamoDB checkpointer to allow for this.
+
 ## Overview
 
 [Amazon Kinesis](https://aws.amazon.com/kinesis/data-streams/)  enables real-time processing of streaming data at massive scale. Kinesis Streams is useful for rapidly moving data off data producers and then continuously processing the data, be it to transform the data before emitting to a data store, run real-time metrics and analytics, or derive more complex data streams for further processing.

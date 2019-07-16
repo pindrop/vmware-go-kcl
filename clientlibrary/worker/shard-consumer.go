@@ -38,11 +38,11 @@ import (
 	"github.com/aws/aws-sdk-go/service/kinesis"
 	"github.com/aws/aws-sdk-go/service/kinesis/kinesisiface"
 
-	chk "github.com/vmware/vmware-go-kcl/clientlibrary/checkpoint"
-	"github.com/vmware/vmware-go-kcl/clientlibrary/config"
-	kcl "github.com/vmware/vmware-go-kcl/clientlibrary/interfaces"
-	"github.com/vmware/vmware-go-kcl/clientlibrary/metrics"
-	par "github.com/vmware/vmware-go-kcl/clientlibrary/partition"
+	chk "github.com/pindrop/vmware-go-kcl/clientlibrary/checkpoint"
+	"github.com/pindrop/vmware-go-kcl/clientlibrary/config"
+	kcl "github.com/pindrop/vmware-go-kcl/clientlibrary/interfaces"
+	"github.com/pindrop/vmware-go-kcl/clientlibrary/metrics"
+	par "github.com/pindrop/vmware-go-kcl/clientlibrary/partition"
 )
 
 const (
@@ -263,8 +263,9 @@ func (sc *ShardConsumer) waitOnParentShard(shard *par.ShardStatus) error {
 	}
 
 	pshard := &par.ShardStatus{
-		ID:  shard.ParentShardId,
-		Mux: &sync.Mutex{},
+		ID:         shard.ParentShardId,
+		StreamName: shard.StreamName,
+		Mux:        &sync.Mutex{},
 	}
 
 	for {
